@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+}
+
+html {
+    font-size: 1rem;
+    font-family: sans-serif;
+}
+
+main {
+    padding: 1rem;
+    width: 80%;
+    margin: 2rem auto;
+    background: darkturquoise;
+}
+
+header, header div, section {
+    display: flex;
+}
+
+.round {
+    border-radius: 10px;
+}
+
+header {
+    border: 1px white solid;
+    text-align: center;
+    padding: .5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    background: #ffffffcc;
+}
+
+header div {
+    flex-basis: 33%;
+}
+
+#title {
+    justify-content: center;
+    z-index: 10;
+}
+
+#connect {
+    justify-content: flex-end;
+}
+
+#connect input {
+    height: 1.5rem;
+    padding: 0 .5rem;
+}
+
+#user-name {
+    width: 15vw;
+}
+
+#screen {
+    margin: 1rem 0;
+    padding: .5rem;
+    height: 50vh;
+    background: #ffffff;
+    border: 3px white solid;
+    overflow: auto;
+}
+
+#screen span {
+    color: blue;
+}
+
+#screen p {
+    margin-top: .5rem;
+}
+
+#user-say {
+    width: 80%;
+    height: 1.5rem;
+    border-radius: 10px;
+    border: 1px black solid;
+    padding: .5rem;
+    margin: .5rem;
+}
+
+#send {
+    padding: .25rem;
+}
+
+footer {
+    background: #ffffffcc;
+}
+
+aside {
+    background: #ffffffcc;
+    flex-basis: 35%;
+    margin: 1rem 0 0 1rem;
+}
+
