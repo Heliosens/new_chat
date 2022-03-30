@@ -1,8 +1,12 @@
 <?php
 
+require $_SERVER['DOCUMENT_ROOT'] . '/Entity/Dialogue.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Manager/UserManager.php';
+
 
 class DialogueManager
 {
+
     /**
      * @return array
      */
@@ -15,7 +19,7 @@ class DialogueManager
                 $dialogue[] = (new Dialogue())
                     ->setId($sentence['id'])
                     ->setSentence($sentence['sentence'])
-                    ->setAuthor(UserManager::getUserById($sentence['author']))
+                    ->setAuthor(UserManager::getUserById($sentence['user_fk']))
                     ;
             }
         }
@@ -23,17 +27,17 @@ class DialogueManager
     }
 
     /**
-     * @param Dialogue $sentence
+     * @param Dialogue $text
      * @return bool
      */
-    public static function addSentence(Dialogue &$sentence)
+    public static function addSentence(Dialogue &$text)
     {
         $stm = DB::conn()->prepare("INSERT INTO dialogue (sentence, user_fk) VALUES (:sentence, :author)");
-        $stm->bindValue(':sentence', $sentence->getSentence());
-        $stm->bindValue(':author', $sentence->getAuthor()->getId());
+        $stm->bindValue(':sentence', $text->getSentence());
+        $stm->bindValue(':author', $text->getAuthor()->getId());
 
         $result = $stm->execute();
-        $sentence->setId(DB::conn()->lastInsertId());
+        $text->setId(DB::conn()->lastInsertId());
         return $result;
     }
 

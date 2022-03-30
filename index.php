@@ -1,6 +1,8 @@
 <?php
+
 session_start();
-include 'DB.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/DB.php';
+
 ?>
 <!doctype html>
 <html lang="fr">
@@ -19,20 +21,15 @@ include 'DB.php';
                 <span>Chat</span>
             </div>
             <div id="connect">
-                <input type="text" id="user-name" name="user-name" placeholder="Pseudo">
-                <input type="submit" value="ok">
+                <form action="index.php" method="post">
+                    <input type="text" id="user-name" name="user-name" placeholder="Pseudo">
+                    <input type="submit" id="go" name="goChat" value="ok">
+                </form>
             </div>
         </header>
         <section>
             <div>
-                <div id="screen" class="round">
-                    <p>
-                        <span>Pseudo 1 : </span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    </p>
-                    <p>
-                        <span>Pseudo 2 : </span>Aspernatur at consequuntur doloremque eaque eos exercitationem facere fuga.
-                    </p>
-                </div>
+                <div id="screen" class="round"></div>
                 <footer class="round">
                     <input id="user-say" type="text" class="round">
                     <input type="submit" id="send" value="send" class="round">
@@ -44,3 +41,11 @@ include 'DB.php';
 <script src="app.js"></script>
 </body>
 </html>
+
+<?php
+
+if(isset($_GET['a']) && $_POST['goChat'] && $_POST['user-name'] !== ""){
+
+    $_SESSION['user'] = $_POST['user-name'];
+
+}
