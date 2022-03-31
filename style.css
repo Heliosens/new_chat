@@ -20,7 +20,7 @@ main {
     background: darkturquoise;
 }
 
-header, header div, section, footer {
+header, header div, section, form {
     display: flex;
 }
 
@@ -97,7 +97,7 @@ section > div {
     padding: .25rem;
 }
 
-footer {
+form {
     background: #ffffffcc;
     align-items: center;
 }

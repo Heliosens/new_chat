@@ -1,6 +1,5 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Entity/User.php';
 
 class UserManager
 {

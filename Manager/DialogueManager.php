@@ -1,8 +1,5 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Entity/Dialogue.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/Manager/UserManager.php';
-
 
 class DialogueManager
 {

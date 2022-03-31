@@ -1,8 +1,10 @@
 <?php
-
 session_start();
-include $_SERVER['DOCUMENT_ROOT'] . '/DB.php';
-
+require $_SERVER['DOCUMENT_ROOT'] . '/DB.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Entity/User.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Entity/Dialogue.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Manager/UserManager.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Manager/DialogueManager.php';
 ?>
 <!doctype html>
 <html lang="fr">
@@ -31,8 +33,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/DB.php';
             <div>
                 <div id="screen" class="round"></div>
                 <footer class="round">
-                    <input id="user-say" type="text" class="round">
-                    <input type="submit" id="send" value="send" class="round">
+                    <form action="index.php" method="post">
+                        <input id="user-say" type="text" class="round">
+                        <input type="submit" id="send" value="send" class="round">
+                    </form>
                 </footer>
             </div>
             <aside></aside>
@@ -44,8 +48,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/DB.php';
 
 <?php
 
-if(isset($_GET['a']) && $_POST['goChat'] && $_POST['user-name'] !== ""){
-
-    $_SESSION['user'] = $_POST['user-name'];
-
+if(isset($_POST['goChat']) && $_POST['user-name'] !== ""){
+    $pseudo = trim(strip_tags($_POST['user-name']));
+    $user = new User();
+    $user->setPseudo($pseudo);
+    UserManager::addUser($user);
+    $_SESSION['user'] = $user;
 }
