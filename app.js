@@ -2,11 +2,10 @@ let userSay = document.getElementById('user-say');
 userSay.focus();
 let sendBtn = document.getElementById('send');
 // get user name
-let name = document.getElementById('user-name');
 let screen = document.getElementById('screen');
 
 // setInterval(updateDisplay, 1000);
-// updateDisplay();
+updateDisplay();
 
 sendBtn.addEventListener('click', nextSentence);
 
@@ -14,10 +13,7 @@ sendBtn.addEventListener('click', nextSentence);
 function updateDisplay (){
     const xhr = new XMLHttpRequest();
     xhr.onload = function (){
-        screen.innerHTML = "";
-
         let text = JSON.parse(xhr.responseText);
-        console.log(text)
         for(let sentence of text) {
             let item = document.createElement('p');
             let span = document.createElement('span');
@@ -30,18 +26,19 @@ function updateDisplay (){
     // Ajax request
     xhr.open("GET", "/api/dialogue.php");
     xhr.send();
-
 }
 
 // send answer to db
 function nextSentence (){
-    updateDisplay();
     let sentence = userSay.value;
-
-    if(sentence !== ""){
+    if(!sentence) {
+        alert('Veuillez entrer un message')
+    }
+    else {
         let xhr = new XMLHttpRequest();
         xhr.onload = function (){
             console.log(xhr.responseText);
+            screen.innerHTML += xhr.responseText;
             let newSentence = JSON.parse(xhr.responseText);
         }
         let dialogue = {
@@ -52,4 +49,3 @@ function nextSentence (){
         xhr.send(JSON.stringify(dialogue));
     }
 }
-

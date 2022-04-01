@@ -1,10 +1,5 @@
 <?php
 session_start();
-require $_SERVER['DOCUMENT_ROOT'] . '/DB.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/Entity/User.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/Entity/Dialogue.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/Manager/UserManager.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/Manager/DialogueManager.php';
 ?>
 <!doctype html>
 <html lang="fr">
@@ -23,7 +18,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/Manager/DialogueManager.php';
                 <span>Chat</span>
             </div>
             <div id="connect">
-                <form action="index.php" method="post">
+                <form action="function.php" method="post">
                     <input type="text" id="user-name" name="user-name" placeholder="Pseudo">
                     <input type="submit" id="go" name="goChat" value="ok">
                 </form>
@@ -45,13 +40,3 @@ require $_SERVER['DOCUMENT_ROOT'] . '/Manager/DialogueManager.php';
 <script src="app.js"></script>
 </body>
 </html>
-
-<?php
-
-if(isset($_POST['goChat']) && $_POST['user-name'] !== ""){
-    $pseudo = trim(strip_tags($_POST['user-name']));
-    $user = new User();
-    $user->setPseudo($pseudo);
-    UserManager::addUser($user);
-    $_SESSION['user'] = $user;
-}

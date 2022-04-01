@@ -1,5 +1,6 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Entity/User.php';
 
 class UserManager
 {
@@ -15,6 +16,7 @@ class UserManager
                 $users[] = (new User)
                     ->setId($data['id'])
                     ->setPseudo($data['pseudo'])
+                    ->setOn($data['onAir'])
                     ;
             }
         }
@@ -32,7 +34,11 @@ class UserManager
         if($query){
             $user = $query->fetch();
         }
-        return (new User())->setId($user['id'])->setPseudo($user['pseudo']);
+        return (new User())
+            ->setId($user['id'])
+            ->setPseudo($user['pseudo'])
+            ->setOn($user['onAir'])
+            ;
     }
 
     /**

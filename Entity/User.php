@@ -5,6 +5,7 @@ class User
 {
     private ?int $id = null;
     private string $pseudo;
+    private ?int $on = null;
 
     /**
      * @return int|null
@@ -39,6 +40,23 @@ class User
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getOn(): ?int
+    {
+        return $this->on;
+    }
+
+    /**
+     * @param int|null $on
+     */
+    public function setOn(?int $on): self
+    {
+        $this->on = $on;
         return $this;
     }
 

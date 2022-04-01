@@ -1,9 +1,10 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Entity/User.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Manager/UserManager.php';
 
 class DialogueManager
 {
-
     /**
      * @return array
      */
@@ -24,18 +25,19 @@ class DialogueManager
     }
 
     /**
-     * @param Dialogue $text
+     * @param $text
      * @return bool
      */
-    public static function addSentence(Dialogue &$text)
+    public static function addSentence(&$text)
     {
-        $stm = DB::conn()->prepare("INSERT INTO dialogue (sentence, user_fk) VALUES (:sentence, :author)");
-        $stm->bindValue(':sentence', $text->getSentence());
-        $stm->bindValue(':author', $text->getAuthor()->getId());
+        $stm = DB::conn()->prepare("
+            INSERT INTO dialogue (sentence, user_fk) VALUES (:sentence, :author)
+        ");
 
-        $result = $stm->execute();
-        $text->setId(DB::conn()->lastInsertId());
-        return $result;
+        $stm->bindValue(':sentence', strip_tags($text));
+        $stm->bindValue(':author', 1);
+
+        return $stm->execute();
     }
 
 }
