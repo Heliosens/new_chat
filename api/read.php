@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/DB.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Entity/Dialogue.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Manager/DialogueManager.php";

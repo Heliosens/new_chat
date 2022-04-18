@@ -26,16 +26,17 @@ class DialogueManager
 
     /**
      * @param $text
+     * @param $author_fk
      * @return bool
      */
-    public static function addSentence(&$text)
+    public static function addSentence($text, $author_fk)
     {
         $stm = DB::conn()->prepare("
-            INSERT INTO dialogue (sentence, user_fk) VALUES (:sentence, :author)
+            INSERT INTO dialogue (sentence, user_fk) VALUES (:content, :userId)
         ");
 
-        $stm->bindValue(':sentence', strip_tags($text));
-        $stm->bindValue(':author', 1);
+        $stm->bindValue(':content', $text);
+        $stm->bindValue(':userId', $author_fk);
 
         return $stm->execute();
     }

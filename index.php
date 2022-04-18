@@ -18,20 +18,36 @@ session_start();
                 <span>Chat</span>
             </div>
             <div id="connect">
-                <form action="function.php" method="post">
-                    <input type="text" id="user-name" name="user-name" placeholder="Pseudo">
-                    <input type="submit" id="go" name="goChat" value="ok">
-                </form>
+                <?php
+                if(isset($_SESSION['user'])){
+                    ?>
+                    <span>On air : <strong><?= $_SESSION['user'] ?></strong></span>
+                    <a href="function.php?a=end">Déconnexion</a>
+                    <?php
+                }
+                else {
+                    ?>
+                    <form action="function.php?a=start" method="post">
+                        <input type="text" id="user-name" name="user-name" placeholder="Pseudo">
+                        <input type="submit" id="go" name="goChat" value="ok">
+                    </form>
+                    <?php
+                }
+                ?>
             </div>
         </header>
         <section>
             <div>
                 <div id="screen" class="round"></div>
                 <footer class="round">
-                    <form action="index.php" method="post">
+                    <?php
+                    if(isset($_SESSION['user'])){
+                    ?>
                         <input id="user-say" type="text" class="round">
                         <input type="submit" id="send" value="send" class="round">
-                    </form>
+                    <?php
+                        }
+                    ?>
                 </footer>
             </div>
             <aside></aside>

@@ -5,9 +5,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Entity/User.php';
 class UserManager
 {
     /**
+     * read db
      * @return array
      */
-    public static function getUser(): array
+    public static function getAllUsers(): array
     {
         $users = [];
         $query = DB::conn()->query("SELECT * FROM user");
@@ -16,7 +17,6 @@ class UserManager
                 $users[] = (new User)
                     ->setId($data['id'])
                     ->setPseudo($data['pseudo'])
-                    ->setOn($data['onAir'])
                     ;
             }
         }
@@ -25,20 +25,19 @@ class UserManager
 
     /**
      * @param $id
-     * @return User
+     * @return User|null
      */
-    public static function getUserById($id): User
+    public static function getUserById($id): ?User
     {
-        $user = "";
         $query = DB::conn()->query("SELECT * FROM user WHERE id = $id");
         if($query){
             $user = $query->fetch();
+            return (new User())
+                ->setId($user['id'])
+                ->setPseudo($user['pseudo'])
+                ;
         }
-        return (new User())
-            ->setId($user['id'])
-            ->setPseudo($user['pseudo'])
-            ->setOn($user['onAir'])
-            ;
+        return null;
     }
 
     /**
@@ -56,4 +55,37 @@ class UserManager
         return $result;
     }
 
+    /**
+     * @param $pseudo
+     * @return bool
+     */
+    public static function userExist($pseudo):bool
+    {
+        $result = DB::conn()->prepare("
+            SELECT * FROM user WHERE pseudo = :pseudo
+        ");
+
+        $result->bindValue(':pseudo', $pseudo);
+        $result->execute();
+        return $result->fetch() ? true : false;
+    }
+
+    /**
+     * @param string $name
+     * @return User|null
+     */
+    public static function getUserByPseudo (string $name) :?User
+    {
+        $stm = DB::conn()->prepare("SELECT * FROM user WHERE pseudo = :name");
+        $stm->bindValue(':name', $name);
+        $stm->execute();
+        if($stm){
+            $user = $stm->fetch();
+            return (new User())
+                ->setId($user['id'])
+                ->setPseudo($name)
+                ;
+        }
+        return null;
+    }
 }
