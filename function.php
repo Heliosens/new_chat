@@ -19,7 +19,6 @@ switch ($param){
 //  die(var_dump($user));
             }
             else{   // user exist update onAir to 1
-                UserManager::switchOnOff($pseudo, 1);
                 $user = UserManager::getUserByPseudo($pseudo);
             }
 
@@ -30,7 +29,6 @@ switch ($param){
         }
         break;
     case 'end':
-        UserManager::switchOnOff($_SESSION['user'], 0);
         $_SESSION['user'] = "";
         $_SESSION['id'] = "";
         session_destroy();

@@ -50,7 +50,6 @@ session_start();
                     ?>
                 </footer>
             </div>
-            <aside></aside>
         </section>
     </main>
 <script src="app.js"></script>

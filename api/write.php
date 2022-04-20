@@ -7,8 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Manager/UserManager.php";
 
 
 $write = json_decode(file_get_contents('php://input'), true);
-$result = [];
-//die(var_dump($_SESSION));
+
 if($_SESSION['user']){
     if(isset($write)){
         $result[] = [
