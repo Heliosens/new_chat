@@ -33,24 +33,25 @@ if(sendBtn){
 }
 
 // update display
-// setInterval(updateDisplay, 1000);
-
+setInterval(updateDisplay, 1000);
 
 // create XML object
 function updateDisplay (){
     const xhr = new XMLHttpRequest();
     xhr.onload = function (){
-        console.log(xhr.responseText);
-        console.log(JSON.parse(xhr.responseText));
+        screen.innerHTML = "";
+
         let text = JSON.parse(xhr.responseText);
 
         for(let sentence of text) {
             let item = document.createElement('p');
-            let span = document.createElement('span');
-            span.innerHTML = sentence['author'] + " : ";
-            item.appendChild(span);
-            item.innerHTML += sentence['sentence'];
-            screen.appendChild(item);
+            let span1 = document.createElement('span');
+            span1.innerHTML = sentence['author'] + " : ";
+            let span2 = document.createElement('span');
+            span2.innerHTML = sentence['sentence'];
+            item.appendChild(span1);
+            item.appendChild(span2);
+            screen.prepend(item);
         }
     }
     xhr.open("GET", "/api/read.php");
@@ -64,9 +65,6 @@ function nextSentence (){
     let jsonText = JSON.stringify(sentence);
 
     let xhr = new XMLHttpRequest();
-    xhr.onload = function (){
-        console.log(xhr.responseText);
-    }
     xhr.open('POST', '/api/write.php');
     xhr.send(jsonText);
 }
