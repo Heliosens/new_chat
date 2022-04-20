@@ -11,7 +11,7 @@ class DialogueManager
     public static function getDialogue() : array
     {
         $dialogue = [];
-        $query = DB::conn()->query("SELECT * FROM dialogue");
+        $query = DB::conn()->query("SELECT * FROM dialogue ORDER BY id DESC LIMIT 10");
         if($query){
             foreach ($query->fetchAll() as $sentence){
                 $dialogue[] = (new Dialogue())
